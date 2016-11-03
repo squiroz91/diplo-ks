@@ -17,6 +17,20 @@ El sistema en el cual se ejecutarán los binarios
 Cuando la opcion __--host__ es utilizada, la opción _configure_ buscará la suite adecuada para hacer la compilación cruzada. Las herramientas de compilación cruzada usan por default prefijos para seleccionar la arquitectura objetivo a compilar. Ejemplo de opciones de compilación cruzada para MinGW32, con binarios llamados i586-minGW32msvc-gcc-i586-mingw32msvc-ld,i586-mingw32msvc-as, etc.
 
 ###¿Cómo configurar el kernel para que soporte la plataforma de software deseado?
+Antes de iniciar la compilación
+Configurarlo
+Definir los módulos a ser compilados y las opciones a ser compiladas
+Cómo compilar el kernel (cómo módulos o dentro del kernel)
+
+####Configuración
+__make config__
+Opciones de compilación en modo texto (demasiado tardado)
+
+__make menuconfig__
+Programa tipo gráfico. Utilizarlo si no se tiene la ventana X windows funcionando
+
+__make xconfig__
+Configuración en modo gráfico
 
 Ejemplo de sintaxis de compilación cruzada:
 
@@ -36,7 +50,22 @@ Por ejemplo cuando se instala el compilado, se puede utilizar la opcion --target
 ###¿Qué pasos hace el proceso de compilación para generar el código objeto final?
 
 
+
 ##¿Cómo arrancar el nuevo kernel?
+
+Instalando el Kernel
+
+El proceso consta de dos partes
+
+a) Instalar el kernel perse
+b) Instalar los módulos compilados
+
+###Pasos para instalar el kernel
+
+Los archivos ejecutables deben estar en el directorio /boot
+se debe copiar el archivo bzimage en /boot
+
+
 Cuando la compilación haya finalizado, reiniciar la computadora
 En el boot loadar escoger nuevo>kernel
 Revisar los mensajes de carga, si hay algún error
