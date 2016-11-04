@@ -16,6 +16,14 @@ Construir tu modulo de Kernel para una Raspberry Pi por compilador cruzado, es u
 *	El primero, es construir el Kernel modificado para la Raspberry Pi, en un equipo con alguna distribución Linux. Que es un proceso que lleva algo de tiempo, pero solo se hace una sola vez. 
 *	El segundo paso es después de construir el Kernel, el resultado binario se es copiado en la Raspberry Pi.
 
+		Get the source code for linux kernel and other tools to make image.
+
+    		$ mkdir raspberrypi
+    		$ cd raspberrypi
+    		$ git clone https://github.com/raspberrypi/tools.git
+    		$ git clone https://github.com/raspberrypi/linux.git
+
+
 ##¿Cómo conseguir un compilador cruzado? 
 
 Cuando compilamos un Kernel de Linux en otra arquitectura de CPU:
@@ -38,27 +46,55 @@ La arquitectura del CPU y el prefijo de la compilación cruzada esta definido at
    
 Existen configuraciones por default disponibles, por tarjeta o por familia de CPU
 +	Estan disponibles en `arch/<arch>/configs/`, y están solo los archivos mínimos `.config`
-+	*Este es el camino mas común para configurar el kernel para plataformas embebidas*
+	+	*Este es el camino mas común para configurar el kernel para plataformas embebidas*
 +	Se puede correr `make help` para encontrar si alguna configuración esta disponible para tu plataforma
 +	Para crear tu propio archivo de configuración
 	+	`make savecdfconfig` para crear una configuración mínima
 	+	`mv defconfig arch/<arch>/configs/myown_defconfig`
 +	Después de cargar la configuración por default, se puede ajustar la configuración a tus necesidades con:
 	+	`make config` 
-```
-[NOTES on "make config"](https://github.com/raspberrypi/linux):
-
-Having unnecessary drivers will make the kernel bigger, and can under some circumstances lead to problems: probing for a nonexistent controller card may confuse your other controllers
-
-Compiling the kernel with "Processor type" set higher than 386 will result in a kernel that does NOT work on a 386.The kernel will detect this on bootup, and give up.
-
-A kernel with math-emulation compiled in will still use the coprocessor if one is present: the math emulation will just never get used in that case.  The kernel will be slightly larger, but will work on different machines regardless of whether they have a math coprocessor or not.
-
-The "kernel hacking" configuration details usually result in a bigger or slower kernel (or both), and can even make the kernel less stable by configuring some routines to actively try to break bad code to find kernel problems (kmalloc()). Thus you should probably answer 'n' to the questions for "development","experimental", or "debugging" features.
-```
+[NOTES on "make config"](https://github.com/raspberrypi/linux)
 	+	`make xconfig`
 	+	`make gconfig`
 	+	`make menuconfig`	
+
+Dependiendo de la arquitectura el hardware seleccionado puede estar descrito usando código en C directo con el kernel, o usar un lenguaje espacial de descriptivo en el árbol de dispositivos (Device tree).
++	ARM, PowerPC, OpenRISC, ARC, son ejemplos de arquitecturas usando Device Tree.
++	Correr `make`
++	Copiar la imagen final del Kernel 
+	+	Puede ser `zImage`, `vmlinux`, `bzImage` en `arch/<arch>/boot`
+	+	Copiar el "Device tree blob" tal vez pueda ser necesario `arch/<arch>/boot/dts`
++	`make modules_install` suele ser usado en el desarrollo de embebidos, instala algunos módulos y archivos de descripción 
+	+	`make INSTALL_MOD_PATH=<dir>/ modules_install`	
+
+##¿Cómo arrancar el nuevo kernel?
+
+Compilando un kernel modificado casi siempre conlleva el riesgo de que el nuevo kernel no boote por alguna razón. Algunos conocimientos sobre ARM boot loader u-boot nos ayudan a bootear de una manera correcta la imagen del kernel y levantar nuestro dispositivo ARM de nuevo. 
+
+Booteando con u-boot
+
++	Las versiones recientes de u-boot pueden bootear el binario `zImage`
++ 	Otras versiones mas antiguas necesitan un formato especial de kernel: `uImage`
+	+	`uImage` es generada de `zImage` usando la herramienta `mkimage`.
+	+	En algunos ARM, `make uImage` requiere una variable `LOADADDR` que indica en cual dirección de la memoria física sera ejecutado.
++	El típico proceso de booteo 
+	+	Cargar `zImage` o `uImage` en la dirección X de la memoria
+	+	Cargar `<board>.dbt` de la dirección Y de la memoria
+	+	Inicia el kernel con `bootz X - Y(en el caso de zImage)` o `booym X - y (en el caso de uImage)`  
+
+
+***
+Ref:
+[Rpi linux](https://github.com/raspberrypi/linux)
+[How To compile a custom Linux kernel for your ARM device](https://github.com/umiddelb/armhf/wiki/How-To-compile-a-custom-Linux-kernel-for-your-ARM-dev ice)
+[Linux kernel introducction](http://free-electrons.com/)
+***
+
+    
+
+
+
+
 
 
  
