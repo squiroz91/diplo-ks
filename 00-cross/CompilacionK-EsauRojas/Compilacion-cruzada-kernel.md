@@ -10,12 +10,11 @@ Construir tu modulo de Kernel para una Raspberry Pi por compilador cruzado, es u
 ##¿Cómo conseguir un compilador cruzado? 
 	
 El Kernel de Linux consiste en los siguientes componentes:
-	
-	Imagen de Kernel
-		*Plataforma de 32 bits: `<boot-partition>/zImage` o `<boot-partition>/uImage`, dependiendo de las compatibilidades y configuración de u-boot.
-		*Plataforma de 64 bits: `<boot-partition>/Image`.
-	Árbol binario de dispositivos, una descripción de bajo nivel de los dispositivos, especifica de tu dispositivo(`<boot-partition>/<board>.dtb`).
-	Módulos del Kernel (`/lib/modules/<kernel-version>/*`).
-	Firmware (`/lib/firmware/*`).
-	Headers (`/usr/include/linux`).
++Imagen de Kernel
+	*Plataforma de 32 bits: `<boot-partition>/zImage` o `<boot-partition>/uImage`, dependiendo de las compatibilidades y configuración de u-boot.
+	*Plataforma de 64 bits: `<boot-partition>/Image`.
++Árbol binario de dispositivos, una descripción de bajo nivel de los dispositivos, especifica de tu dispositivo(`<boot-partition>/<board>.dtb`).
++Módulos del Kernel (`/lib/modules/<kernel-version>/*`).
++Firmware (`/lib/firmware/*`).
++Headers (`/usr/include/linux`).
  
