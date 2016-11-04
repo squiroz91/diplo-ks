@@ -46,3 +46,6 @@ I add two images showing the old and the new kernel.
 	This is the new kernel generated.
 
 
+The configuration file used on the compiling process is `kernel.config` and can be
+found in the config folder.
+
