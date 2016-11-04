@@ -1,8 +1,9 @@
 Compilacion Cruzada para Raspberry Pi 3
 
+  Nombre: Mauricio Quijada Jiménez
+
   El kernel o núcleo de linux se puede definir como el corazón de este sistemaoperativo. Es el encargado de que el software y el hardware de tu ordenador puedan trabajar juntos.
 
-1.-¿Cómo conseguir un compilador cruzado?
 
   El kernel se puede compilar en el embebido, sin embargo esto llevaría bastante tiempo, por lo que se compila en la pc. Al proceso de compilar para otra arquitectura se le conoce como compilación cruzada.
 
