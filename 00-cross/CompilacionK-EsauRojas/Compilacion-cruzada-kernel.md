@@ -45,17 +45,17 @@ Existen configuraciones por default disponibles, por tarjeta o por familia de CP
 	+	`mv defconfig arch/<arch>/configs/myown_defconfig`
 +	Después de cargar la configuración por default, se puede ajustar la configuración a tus necesidades con:
 	+	`make config` 
+```
+[NOTES on "make config"](https://github.com/raspberrypi/linux):
 
-	NOTES on "make config":
+Having unnecessary drivers will make the kernel bigger, and can under some circumstances lead to problems: probing for a nonexistent controller card may confuse your other controllers
 
-	Having unnecessary drivers will make the kernel bigger, and can under some circumstances lead to problems: probing for a nonexistent controller card may confuse your other controllers
+Compiling the kernel with "Processor type" set higher than 386 will result in a kernel that does NOT work on a 386.The kernel will detect this on bootup, and give up.
 
-	Compiling the kernel with "Processor type" set higher than 386 will result in a kernel that does NOT work on a 386.The kernel will detect this on bootup, and give up.
+A kernel with math-emulation compiled in will still use the coprocessor if one is present: the math emulation will just never get used in that case.  The kernel will be slightly larger, but will work on different machines regardless of whether they have a math coprocessor or not.
 
-	A kernel with math-emulation compiled in will still use the coprocessor if one is present: the math emulation will just never get used in that case.  The kernel will be slightly larger, but will work on different machines regardless of whether they have a math coprocessor or not.
-
-	The "kernel hacking" configuration details usually result in a bigger or slower kernel (or both), and can even make the kernel less stable by configuring some routines to actively try to break bad code to find kernel problems (kmalloc()). Thus you should probably answer 'n' to the questions for "development","experimental", or "debugging" features.
-
+The "kernel hacking" configuration details usually result in a bigger or slower kernel (or both), and can even make the kernel less stable by configuring some routines to actively try to break bad code to find kernel problems (kmalloc()). Thus you should probably answer 'n' to the questions for "development","experimental", or "debugging" features.
+```
 	+	`make xconfig`
 	+	`make gconfig`
 	+	`make menuconfig`	
