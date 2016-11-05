@@ -67,6 +67,10 @@ Dependiendo de la arquitectura el hardware seleccionado puede estar descrito usa
 +	`make modules_install` suele ser usado en el desarrollo de embebidos, instala algunos módulos y archivos de descripción 
 	+	`make INSTALL_MOD_PATH=<dir>/ modules_install`	
 
+
+En el caso de Raspberry Pi [Kernel building](https://www.raspberrypi.org/documentation/linux/kernel/building.md) 
+
+
 ##¿Cómo arrancar el nuevo kernel?
 
 Compilando un kernel modificado casi siempre conlleva el riesgo de que el nuevo kernel no boote por alguna razón. Algunos conocimientos sobre ARM boot loader u-boot nos ayudan a bootear de una manera correcta la imagen del kernel y levantar nuestro dispositivo ARM de nuevo. 
