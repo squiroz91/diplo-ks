@@ -84,9 +84,45 @@ Por ejemplo cuando se instala el compilado, se puede utilizar la opcion --target
 
 ###¿Qué pasos hace el proceso de compilación para generar el código objeto final?
 
+**Configurar los compiladores c/c++**
+Invocación de compiladores
+$ mkdir -p build-gcc
+$ cd build-gcc
+$ ../gcc-4.9.2/configure --prefix=/opt/cross --target=aarch64-linux --enable-languages=c,c++ --disable-multilib
+$ make -j4 all-gcc
+$ make install-gcc
+$ cd ..
 
+**Libreria C y archivos de inicio**
+$ mkdir -p build-glibc
+$ cd build-glibc
+$ ../glibc-2.20/configure --prefix=/opt/cross/aarch64-linux --build=$MACHTYPE --host=aarch64-linux --target=aarch64-linux --with-headers=/opt/cross/aarch64-linux/include --disable-multilib libc_cv_forced_unwind=yes
+$ make install-bootstrap-headers=yes install-headers
+$ make -j4 csu/subdir_lib
+$ install csu/crt1.o csu/crti.o csu/crtn.o /opt/cross/aarch64-linux/lib
+$ aarch64-linux-gcc -nostdlib -nostartfiles -shared -x c /dev/null -o /opt/cross/aarch64-linux/lib/libc.so
+$ touch /opt/cross/aarch64-linux/include/gnu/stubs.h
+$ cd ..
 
-##¿Cómo arrancar el nuevo kernel?
+**Librerias de apoyo**
+$ cd build-gcc
+$ make -j4 all-target-libgcc
+$ make install-target-libgcc
+$ cd ..
+
+**Libreria C standard**
+$ cd build-glibc
+$ make -j4
+$ make install
+$ cd ..
+
+***Libreria C++ standard**
+$ cd build-gcc
+$ make -j4
+$ make install
+$ cd .
+
+###¿Cómo arrancar el nuevo kernel?
 
 -Reiniciar la máquina
 -En el menu seleccionar el kernel compilador
@@ -109,7 +145,7 @@ En el boot loadar escoger nuevo>kernel
 Revisar los mensajes de carga, si hay algún error
 En caso de que el arranque falle (intentar con el kernel anterior)
 En caso de éxito, verificar que todo funciona (incluyendo red, tarjeta de sonido, módem, etc)
-##Instalar módulos del kernel
+###Instalar módulos del kernel
 Los módulos a ser añadidos se ubicaránen /lib/modules/<version>
 Es recomendable hacer una versión de respaldo en caso de falla
 
@@ -122,3 +158,4 @@ Algunas veces el problema radica en la configuración del kernel, se debe reconf
 [Referencia 1](http://www.haifux.org/lectures/88-sil/kernel-compilation.html)
 [Referencia 2](https://www.gnu.org/software/automake/manual/html_node/Cross_002dCompilation.html)
 [Referencia 3](http://www.tldp.org/HOWTO/html_single/Module-HOWTO/)
+[Referencia 4](http://preshing.com/20141119/how-to-build-a-gcc-cross-compiler/)
