@@ -1,0 +1,47 @@
+Samuel Quiroz Lima
+
+¿Cómo conseguir un compilador cruzado?
+Para conseguir un compilador cruzado se instalaron las herramientas necesarias para poder trabajar en un equipo 'host' con un sistema operativo distinto al sistema Raspbian con el cual trabaja la tarjeta de desarrollo Raspberry PI3. Las herramientas incluyen la instalación del 'Toolchain', el cual se obtiene del repositorio en Github en el apartado de raspberrypi/tools. 
+Este proceso toma varios minutos debido a que se descargan todas las herramientas, archivos y paquetes necesarios para lograr una compilación desde un host no nativo. Por lo mismo, la descarga de herramientas incluye los compiladores para distintas arquitecturas de host.
+Una vez descargadas las herramientas, se debe incluir en las variables de entorno el path para el toolchain. En este caso la línea de código que se agregó al archivo de variables de entorno fue la siguiente:
+export PATH=$PATH:/home/sam/tools/arm-bcm2708/gcc-linaro-arm-linux-gnueabihf-raspbian-x64/bin
+
+Esto con la finalidad de poder realizar la compilación adecuada del kernel con el compilador correspondiente.
+
+Con esto se concluye el setup de las herramientas necesarias para la compilación cruzada en el equipo host.
+
+Posteriormente, se procede a descargar el kernel de linux, en este caso se obtuvo un kernel pre-configurado para la raspberry pi utilizando el siguiente comando desde la terminal del host:
+$ git clone --depth=1 https://github.com/raspberrypi/linux
+
+De esta manera, y debido a cuestiones de tiempo, se ahorra el paso de tener que configurar el kernel 'a manita' o de maner artesanal y otra ventaja de contar con esta opción de descarga es que se obtiene un kernel a la medida y con los drivers necesarios en este caso para la raspberry pi.
+
+Para realizar la configuración del kernel de manera manual se pueden seguir pasos descritos en el siguiente repositorio:
+https://github.com/raspberrypi/linux
+
+¿Cómo configurar el kernel para que soporte la plataforma de Hardware deseada?
+Para poder generar la configuración especifica para la Raspberry Pi se ejecutan los siguientes comandos:
+KERNEL=kernel7
+make ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- bcm2709_defconfig
+
+En los cuales se especifica la versión de kernel, la arquitectura del 'target', en este caso una arquitectura ARM, el compilador que se utilizará para la compilación cruzada, en este caso es arm-linux-gnueabihf y finalmente se define una configuración base correspondiente al chip de la raspberry, en este caso es el broadcom2709.
+El resultado del comando 'make' es un archivo .config que se genera con la configuración del kernel.
+
+Finalmente, se escribe el siguiente comando para poder generar la imagen del kernel que se montará posteriormente en la SD Card.
+
+¿Qué pasos hace el proceso de compilación para generar el código objeto final?
+
+
+¿Cómo arrancar el nuevo kernel?
+Para arrancar el nuevo Kernel se debe copiar junto con su Device Tree blobs en la SD Card, recordando hacer un backup del kernel viejo por cualquier eventualidad que pueda surgir!!!
+
+Se copia la imagen generada en la partición de archivos y se copian los archivos de 'device tree source' que fueron compilados en un formato binario y que ahora están contenidos en un .dtb en la carpeta de 'boot'. Estos archivos binarios corresponden al 'device tree data' necesario para que el sistema operativo pueda encontrar los registros necesarios en el sistema. 
+
+Para arrancar el nuevo kernel se debe copiar a la SD Card primero empleando los siguientes comandos:
+
+sudo cp mnt/fat32/$KERNEL.img mnt/fat32/$KERNEL-backup.img
+sudo scripts/mkknlimg arch/arm/boot/zImage mnt/fat32/$KERNEL.img
+sudo cp arch/arm/boot/dts/*.dtb mnt/fat32/
+sudo cp arch/arm/boot/dts/overlays/*.dtb* mnt/fat32/overlays/
+sudo cp arch/arm/boot/dts/overlays/README mnt/fat32/overlays/
+sudo umount mnt/fat32
+sudo umount mnt/ext4
