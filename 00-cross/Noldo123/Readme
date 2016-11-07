@@ -1,0 +1,41 @@
+Tarea 0 Samuel Gandarilla Perez
+
+Compilación Cruzada del Kernel Linux
+
+
+La compilación cruzada es un proceso por el cual se puede obtener núcleos de sistemas operativos para arquitecturas diferentes a la que se tiene de forma nativa, este proceso es bastante recomendado en el mundo de los sistemas embebidos ya que por su característica de tener recursos limitados, el trabajar de forma nativa en ellos pueden derivar en un consumo de tiempo bastante considerable.
+
+
+¿Cómo conseguir un compilador cruzado?
+
+Se pueden encontrar gran cantidad de compiladores que soportan el proceso de compilación cruzada, uno de los mas utilizados es GCC que por su versatilidad y ademas de estar por defecto en los sistemas Linux facilita su uso, pero también tenemos otros compiladores como lo es Biuldroot.
+
+¿Cómo configurar el kernel para que soporte la plataforma de Hardware deseada? 
+
+GCC maneja un sistema de prefijos para poder llevar acabo la compilación cruzada por lo que se necesita configurar dos variables que nos permitan colocar esos prefijos durante el proceso de compilación, estos son:
+
+     ARCH: Que define el tipo de arquitectura a utilizar 
+     CROSS_COMPILE: Que definirá el prefijo a utilizar basado en la arquitectura
+
+¿Qué pasos hace el proceso de compilación para generar el código objeto final? 
+
+El proceso de compilación involucra cuatro etapas sucesivas: 
+
+	Preprocesamiento
+	Compilación
+	Ensamblado
+	Enlazado
+
+¿Cómo arrancar el nuevo kernel?
+
+Para la instalación del kernel de Linux se requieren dos archivos que se generan de la compilación, los paquetes son:
+
+	Kernel imagen
+	Kernel-headers
+
+Estos paquetes se instalaran en mi caso por usar Ubuntu, que es derivado de Debian se utilizan:
+
+	dpkg -i kernel_imagen
+	dpkg -i Kernel_headers
+
+
