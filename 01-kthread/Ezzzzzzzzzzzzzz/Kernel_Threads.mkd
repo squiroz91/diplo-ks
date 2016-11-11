@@ -94,4 +94,4 @@ Valor distinto de cero, si la señal está pendiente
     Note that while unloading, we use module name (kthread), not the file name (kthread01.ko).
 
 
-[load_module](img/001.png)
+[Img](Ezzzzzzzzzzzzzz/001.png)
