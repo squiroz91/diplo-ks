@@ -77,4 +77,21 @@ P - puntero a la estructura de tareas del subproceso actual
 Valor distinto de cero, si la señal está pendiente
 
 
+    **Dynamically Loading/Unloading a Kernel Module**
 
+    We use insmod command to load the kernel module as below. We need to execute this                   command with root privileges
+
+        $ insmod kthread01.ko
+
+    In order to list the modules, execute lsmod as below. This will show you the skm loaded.
+
+        $ lsmod
+
+    And for removing/unloading the module, execute rmmod command as below:
+
+        $ rmmod kthread01
+
+    Note that while unloading, we use module name (kthread), not the file name (kthread01.ko).
+
+
+[load_module](img/001.png)
