@@ -61,7 +61,7 @@ la arquitectura ARM usando Raspbian en Raspberry Pi 3.
 En la ![Pantalla 3](PantallaHilo3.png). Se muestra la creación mediante compilación cruzada del módulo 
 del hilo de kernel para ARM.
 
-En la ![Pantalla 4](PantallaHilo2.png). Se muestra la inserción y retiro del hilo del kernel en Raspberry Pi 3,
+En la ![Pantalla 4](PantallaHilo4.png). Se muestra la inserción y retiro del hilo del kernel en Raspberry Pi 3,
 asi como los mensajes registrados en el archivo /var/log/syslog y la ejecución del hilo de kernel
 mediante el comando ps -ef.
 
