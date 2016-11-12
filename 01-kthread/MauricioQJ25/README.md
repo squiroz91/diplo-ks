@@ -45,3 +45,4 @@ se necesitan permisos de root para ejecutar los comandos.
 Se pueden observar los resultados obtenidos a continuacion.
 
 (/TareaHiloMAU.png)
+![alt tag](/TareaHiloMAU.png)
