@@ -1,0 +1,97 @@
+Kernel Threads
+====================================
+
+¿Qué son los hilos del Kernel? Son iguales que los hilos de espacio de usuario en muchos aspectos, pero una de las mayores diferencias es que existen en el espacio del kernel y se ejecutan en un modo privilegiado y tienen acceso completo a las estructuras de datos del kernel. Estos se utilizan básicamente para implementar tareas de fondo dentro del kernel. La tarea puede tratarse de eventos asíncronos o esperar a que se produzca un evento. Los controladores de dispositivos utilizan los servicios de subprocesos del kernel para gestionar dichas tareas. 
+
+Por ejemplo, el subproceso `kernub` de `khubd` supervisa los concentradores usb y ayuda a configurar dispositivos usb durante el hot-plugging.
+
+Para crear un hilo usamos **`kthread_create()`**:
+
+    #include <kthread.h>
+    kthread_create(int (*function)(void *data), void *data, const char name[], ...)
+
+###Parámetros: 
+
+Function - La función que el hilo tiene que ejecutar.
+Data - Los 'datos' que se pasarán a la función
+Name - El nombre por el cual el proceso será reconocido en el kernel
+
+###Devuelve:
+Puntero a una estructura del tipo task_struct
+
+
+En el código, el hilo (thread) se crea en **`init_thread()`**.Creado el hilo ejecuta la función **`thread_fn()`**. 
+
+Ejecutar un hilo es un proceso de dos pasos: primero crear un hilo y despertarlo. El kernel proporciona **`kthread_run()`** que realiza estos dos pasos de una sola vez.
+
+
+    #include <kthread.h>
+    kthread_run(int (*function)(void *data), void *data, const char name[], ...)
+
+###Parámetros: 
+
+Function - La función que el hilo tiene que ejecutar.
+Data - Los 'datos' que se pasarán a la función
+Name - El nombre por el cual el proceso será reconocido en el kernel
+
+###Devuelve:
+Puntero a una estructura del tipo task_struct
+
+
+**`kthread_stop()`** en el espacio del kernel, un hilo puede enviar la solicitud de cancelación.
+
+    #include <linux/kthread.h>
+    int kthread_stop(struct task_struct *k);
+    
+###Parámetros:
+K - Puntero a la estructura de tareas del subproceso a detener
+
+###Devuelve:
+El resultado de la función ejecutada por el subproceso, -EINTR, si `wake_up_process()` nunca fue llamado.
+
+**`kthread_should_stop()`**devuelve un valor distinto de cero, si hay alguna petición de "parada" pendiente. Thread debe invocar esta llamada periódicamente y si devuelve true, debe hacer la limpieza necesaria y salir. 
+
+Señalización del hilo del Kernel
+
+El hilo del kernel ignora todas las señales. Entonces, ¿cómo enviar la señal al hilo del Kernel, si es necesario en algunos escenarios? 
+
+
+**`allow_signal()`**
+
+    void allow_signal(int sig_num)
+    
+###Parámetros:
+sig_num – signal number
+
+
+A diferencia del espacio de usuario, no hay controladores de señal asíncronos en los subprocesos del kernel. Por lo tanto, el hilo debe invocar periódicamente la llamada **`signal_pending()`** para comprobar si hay alguna señal pendiente y debe actuar en consecuencia. 
+
+**`signal_pending()`**
+
+    int signal_pending(task_struct *p)
+
+###Parámetros:
+P - puntero a la estructura de tareas del subproceso actual
+
+###Devuelve: 
+Valor distinto de cero, si la señal está pendiente
+
+
+    **Dynamically Loading/Unloading a Kernel Module**
+
+    We use insmod command to load the kernel module as below. We need to execute this                   command with root privileges
+
+        $ insmod kthread01.ko
+
+    In order to list the modules, execute lsmod as below. This will show you the skm loaded.
+
+        $ lsmod
+
+    And for removing/unloading the module, execute rmmod command as below:
+
+        $ rmmod kthread01
+
+    Note that while unloading, we use module name (kthread), not the file name (kthread01.ko).
+
+
+[load_module](/001.png)
