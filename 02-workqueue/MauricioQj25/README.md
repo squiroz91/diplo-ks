@@ -26,5 +26,7 @@ para observar la ejecución del programa se muestra la siguiente imagen.
 imagen
 
 tareacolas.png
+![alt tag](https://github.com/MauricioQJ25/diplo-ks/blob/workqueue/02-workqueue/MauricioQj25/tareacolas.png)
+
 
 
