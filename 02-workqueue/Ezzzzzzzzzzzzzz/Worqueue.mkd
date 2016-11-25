@@ -24,9 +24,9 @@ Cada WorkQueue tiene uno o más procesos específicos ( "Los hilos del núcleo")
     
     
     
-En el código, el Workqueue se crea en **`init_module()`**.Creado el Workqueue ejecuta la función **`my_wq_function`**. 
+En el código, el Workqueue se crea en **`i_module()`**.Creado el Workqueue ejecuta la función **`my_wq_function`**. 
 
-En el código, el Workqueue se finaliza en **`cleanup_module()`**.Que ejecuta la función **`flush_workqueue`**, y **`destroy_workqueue`**.
+En el código, el Workqueue se finaliza en **`clean_module()`**.Que ejecuta la función **`flush_workqueue`**, y **`destroy_workqueue`**.
 
 
 ##Referencias
