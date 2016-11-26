@@ -1,0 +1,51 @@
+Workqueue
+========================
+
+Workqueues son, superficialmente, similar a tasklets; que permiten que el código del kernel para solicitar que una función se llama en algún momento futuro. Hay, sin embargo, algunas diferencias significativas entre los dos, incluyendo:
+
+Tasklets se ejecutan en el contexto de interrupciones de software con el resultado de que todo el código tasklet debe ser atómica. En lugar de ello, las funciones WorkQueue ejecutan en el contexto de un proceso de kernel especial; como resultado, tienen una mayor flexibilidad. En particular, las funciones WorkQueue pueden dormir.
+
+Tasklets siempre se ejecutan en el procesador de la que se presentaron originalmente. Workqueues funcionan de la misma manera, de forma predeterminada.
+
+código del núcleo puede solicitar que la ejecución de las funciones WorkQueue retrasarse durante un intervalo explícito.
+
+La diferencia clave entre los dos es que tasklets ejecutan rápidamente, durante un corto período de tiempo, y en el modo atómico, mientras que las funciones WorkQueue pueden tener una mayor latencia, pero no tienen que ser atómica. Cada mecanismo tiene situaciones en las que es apropiado.
+
+Un WorkQueue se debe crear de forma explícita antes de su uso, utilizando una de las dos funciones siguientes:
+
+
+        **`struct workqueue_struct *create_workqueue(const char *name);`**
+        **`struct workqueue_struct *create_singlethread_workqueue(const char *name);`**
+
+Cada WorkQueue tiene uno o más procesos específicos ( "Los hilos del núcleo"), que se ejecutan las funciones presentadas a la cola. Para enviar una tarea a un WorkQueue, es necesario rellenar un work_struct estructura. Esto se puede hacer en tiempo de compilación como sigue:
+
+
+        **`INIT_WORK(struct work_struct *work, void (*function)(void *), void *data);`**
+    
+    
+    
+En el código, el Workqueue se crea en **`i_module()`**.Creado el Workqueue ejecuta la función **`my_wq_function`**. 
+
+En el código, el Workqueue se finaliza en **`clean_module()`**.Que ejecuta la función **`flush_workqueue`**, y **`destroy_workqueue`**.
+
+
+##Referencias
+
+[1 www.ibm.com](https://www.ibm.com/developerworks/library/l-tasklets/l-tasklets-pdf.pdf)
+
+[2 jlmedina123-workqueue](https://jlmedina123.wordpress.com/2016/05/18/workqueue/)
+
+[3 www.makelinux.net](http://www.makelinux.net/ldd3/chp-7-sect-6)
+
+
+
+
+
+
+
+
+
+
+
+
+
