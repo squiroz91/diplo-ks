@@ -24,7 +24,7 @@ static int main_timer(void){
 
 static void exit_timer(void)
 {
-  printk(KERN_ALERT "Salinedo del delay");
+  printk(KERN_ALERT "Terminando el delay");
 }
 
 //Global variables
