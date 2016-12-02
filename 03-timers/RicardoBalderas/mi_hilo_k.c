@@ -29,43 +29,13 @@ int thread_function(void *data)
 
 	while (!kthread_should_stop())
 	{
-		/*
-		 * Hasta ahora, se han usado las siguientes tres formas:
-		 *
-		 * while (time_before(...)) cpu_relax(): El hilo de kernel no
-		 *     hace caso del tiempo que se le da y al momento de ver la
-		 *     bitácora del sistema, no ve el tiempo de separación entre
-		 *     la impresión de cada mensaje.
-		 *
-		 * while (time_before(...)) schedule(): No se imprimen los
-		 *     los mensajes de salida en la bitácora del sistema.
-		 *
-		 * mdelay(...): Sí envía los mensajes a la bitácora en los
-		 *     tiempos deseados, pero detiene al procesador mientras no
-		 *     se está haciendo nada.
-		 *
-		 * schedule_timeout(...): Colocando la tarea como
-		 *     TASK_INTERRUPTIBLE antes de llamar a schedule_timeout()
-		 *     el funcionamiento es el deseado, y el procesador no es
-		 *     interrumpido.
-		 */
+		// while (time_before(jiffies, timeout)) cpu_relax();
 
-		/*
-		 * while (time_before(jiffies, timeout)) cpu_relax();
-		 */
+		// mdelay(1000);
 
-		/*
-		 * mdelay(1000);
-		 */
+		// while (time_before(jiffies, timeout)) schedule();
 
-		/*
-		 * while (time_before(jiffies, timeout)) schedule();
-		 */
-
-		/*
-		 * Se está investigando qué hace exactamente schedule_timeout()
-		 */
-
+		// Se está investigando qué hace exactamente schedule_timeout()
 		set_current_state(TASK_INTERRUPTIBLE);
 		schedule_timeout(1 * HZ);
 
