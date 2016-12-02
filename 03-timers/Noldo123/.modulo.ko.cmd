@@ -1,1 +1,0 @@
-cmd_/home/cindar/Noldo123/Noldo123/modulo.ko := ld -r -m elf_x86_64 -T ./scripts/module-common.lds --build-id  -o /home/cindar/Noldo123/Noldo123/modulo.ko /home/cindar/Noldo123/Noldo123/modulo.o /home/cindar/Noldo123/Noldo123/modulo.mod.o
