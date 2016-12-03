@@ -1,0 +1,1 @@
+cmd_/home/saber/Documents/Hector_Reyes/test.ko := ld -r -m elf_x86_64 -T ./scripts/module-common.lds --build-id  -o /home/saber/Documents/Hector_Reyes/test.ko /home/saber/Documents/Hector_Reyes/test.o /home/saber/Documents/Hector_Reyes/test.mod.o
