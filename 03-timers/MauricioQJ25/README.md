@@ -21,5 +21,5 @@ while(time_before()
 se puede ver su ejecución en  la siguiente imagen
 
 colas.png
-![alt tag](https://github.com/MauricioQJ25/diplo-ks/blob/timerkernelmau/03-timers/MauricioQJ25/tareacolas.png)
+![alt tag](https://github.com/MauricioQJ25/diplo-ks/blob/timerkernelmau/03-timers/MauricioQJ25/tarea_tiempo.png)
 
