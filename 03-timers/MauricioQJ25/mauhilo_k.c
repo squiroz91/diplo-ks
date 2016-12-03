@@ -32,13 +32,11 @@ int thread_function(void *data)
 
 	while (!kthread_should_stop())
 	{
-		// while (time_before(jiffies, timeout)) cpu_relax();
 
-		// mdelay(1000);
+		// mdelay(1000); Imprime la linea cada segundo pero detiene al procesador: esto es peligroso. 
 
-		// while (time_before(jiffies, timeout)) schedule();
-
-		// Se está investigando qué hace exactamente schedule_timeout()
+		// schedule_timeout(); Imprime la linea si se coloca la tarea como task interruptible
+		
 		set_current_state(TASK_INTERRUPTIBLE);
 		schedule_timeout(1 * HZ);
 
