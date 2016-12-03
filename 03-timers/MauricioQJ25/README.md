@@ -8,18 +8,19 @@ se compila con el comando
 
 make
 
-Para esperar un tiempo antes de la ejecución ("Hacer un delay")
+Para esperar un tiempo antes de la ejecución de maneras diferentes.
 
-se usa
+se usan 2 
 
-schedule_timeout()
+// mdelay(1000); Imprime la linea cada segundo pero detiene al procesador: esto es peligroso.
+   si queremos que el procesador haga otras tareas.
 
-mdelay()
+// schedule_timeout(); Imprime la linea si se coloca la tarea como: task interruptible
 
-while(time_before()
+//while (time_before(...)) schedule(); Si lo hago con esta linea no veo nada con dmesg.
 
-se puede ver su ejecución en  la siguiente imagen
+se puede ver su ejecución en  la siguiente imagen con schedule_timeout(); en el código
 
-colas.png
+timer.png
 ![alt tag](https://github.com/MauricioQJ25/diplo-ks/blob/timerkernelmau/03-timers/MauricioQJ25/tarea_tiempo.png)
 
