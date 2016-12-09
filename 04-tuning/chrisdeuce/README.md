@@ -13,7 +13,7 @@ __export PATH=<sdk path>/linux-devkit/sysroot/x86_64-arago-linux/usr/bin:$PATH__
 ##¿Qué pasos el proceso de compilación para generar el código objeto final?
 ####Configuración del kernel
 #####Antes de compilar el kernel es necesario hacer una configuración para seleccionar cuales componentes formaran partel del kernel compilado, cuales serán compilados
-como módulis y cuales quedaran fuera
+como módulos y cuales quedaran fuera
 
 #####_Configuraciones por omisión_
 #####La manera más fácil de hacer la compilación es utilizando los parámetros default y luego hacer el tailoring correspodiente, para esto en el kernel escribimos:
@@ -30,7 +30,12 @@ como módulis y cuales quedaran fuera
 ######Al finalizar una ventana de configuración se abre en donde se seleccionan los componentes del kernel que se incorporarán en el build. Al salir de la configuración los cambio son guardados en un archivo en la raiz del árbol de kernel llamdo .config
 
 ####Compilando las fuentes
-#####Compilando el kernell
+#####Compilando el kernel
+#####Una vez que el kernel ha sido configurado debe ser compilad para generar una imagen kernel booteable y cualquier otro módulo que haya sido seleccionado.
+#####Por default U-boot espere uan imagen de tipo zImage
+#####Para construir la imagen tipo zImage se utiliza el comando
+#####__make ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- zImage__
+#####Como resultado se obtiene una imagen de kernel en la ubicación arch/arm/boot llamada zImage
 
 
 
