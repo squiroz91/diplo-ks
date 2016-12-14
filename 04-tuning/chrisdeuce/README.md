@@ -1,3 +1,4 @@
+
 #Tunning del kernel de linux para Beaglebone
 
 ##¿Cómo configurar el kernel para que soporte la plataforma Beaglebone Black?
@@ -37,8 +38,41 @@ como módulos y cuales quedaran fuera
 #####__make ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- zImage__
 #####Como resultado se obtiene una imagen de kernel en la ubicación arch/arm/boot llamada zImage
 
+####Para acceder al menú de configuración se llama de la siguiente manera:
+#####__make ARCH=arm CROSS_COMPILE=arm-linux-gnueabi- menuconfig__
+
+####En donde aparece la pantalla:
+
+####Compilando los fuentes
+#####Una vez que el kernel fue configurado este debe ser compilado para generar el kernel como una imagen booteable al igual que los módulos que fueron seleccionados.
+
+
+####Para crear una imagen del tipo zImage
+#####__make ARCH=arm CROSS_COMPILE=arm-linux-gnueabi- zimage__
+#####La imagen se localiza en: arch/arm/boot/ y se llama zImage
+
+
 
 
 
 ##¿Qué opciones se activaron/desactivaron más sobresalientes para el Hardware y por qué?
 
+###No comprimir initrams
+####**enable CONFIG_INITRAMFS_COMPRESION_NONE**
+####En caso de que se haga estará comprimida dos veces y el kernel será un poco más grande y tomará un tiempo extra en ser descomprimido
+
+###Deshabilitar características no deseadas en producción:
+####MMC, USB, Ethernet, command completion, en resumen haciendo U-Boot más rápido es hacerlo más pequeño
+
+
+###Remover el retraso del boot
+####__setenv bootdelay 0__
+####Por lo general ahora muchos segundos en el arranque
+
+### Remover la veificación CRC del kernel
+####Esta característica es muy buena en producción cuando se tiene corrupción de datos cuando se copia del kernel a la RAM
+####Para hacer esto se modifica el siguiente parámetro.
+####__setenv verify no__
+
+
+###Optimizar el kernel por tamaño
