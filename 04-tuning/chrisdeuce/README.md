@@ -51,7 +51,13 @@ __export PATH=<sdk path>/linux-devkit/sysroot/x86_64-arago-linux/usr/bin:$PATH__
 #####La imagen se localiza en: arch/arm/boot/ y se llama zImage
 
 
+##Pasos para hacer la compilación
+####Una vez finalizado la configuración del menu config, esta se salva y en consola se hace la compilación:
+####make ARCH=arm CROSS_COMPILE=arm-linux-gnueabi- -j4
+####make ARCH=arm CROSS_COMPILE=arm-linux-gnueabi- uImage dtbs LOADADDR=0x80008000 -j4
 
+####Compilación de los módulos:
+####make ARCH=arm CROSS_COMPILE=arm-linux-gnueabi- modules -j4
 
 
 ##¿Qué opciones se activaron/desactivaron más sobresalientes para el Hardware y por qué?
@@ -79,3 +85,5 @@ __export PATH=<sdk path>/linux-devkit/sysroot/x86_64-arago-linux/usr/bin:$PATH__
 #####[Linux Kernel Users guide] (http://processors.wiki.ti.com/index.php/Linux_Kernel_Users_Guide)
 
 #####[free electrons] (https://events.linuxfoundation.org/sites/events/files/slides/opdenacker-boot-time.pdf)
+
+#####[Building the BBB Kernel] (http://elinux.org/Building_BBB_Kernel)
