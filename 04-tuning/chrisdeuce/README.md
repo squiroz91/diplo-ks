@@ -13,8 +13,7 @@ __export PATH=<sdk path>/linux-devkit/sysroot/x86_64-arago-linux/usr/bin:$PATH__
 
 ##¿Qué pasos el proceso de compilación para generar el código objeto final?
 ####Configuración del kernel
-#####Antes de compilar el kernel es necesario hacer una configuración para seleccionar cuales componentes formaran partel del kernel compilado, cuales serán compilados
-como módulos y cuales quedaran fuera
+#####Antes de compilar el kernel es necesario hacer una configuración para seleccionar cuales componentes formaran partel del kernel compilado, cuales serán compilados como módulos y cuales quedarán fuera.
 
 #####_Configuraciones por omisión_
 #####La manera más fácil de hacer la compilación es utilizando los parámetros default y luego hacer el tailoring correspodiente, para esto en el kernel escribimos:
@@ -57,9 +56,9 @@ como módulos y cuales quedaran fuera
 
 ##¿Qué opciones se activaron/desactivaron más sobresalientes para el Hardware y por qué?
 
-###No comprimir initrams
+####No comprimir initrams
 ####**enable CONFIG_INITRAMFS_COMPRESION_NONE**
-####En caso de que se haga estará comprimida dos veces y el kernel será un poco más grande y tomará un tiempo extra en ser descomprimido
+####En caso de que se haga la compresión esta lo sera dos veces y el kernel será un poco más grande y tomará un tiempo extra en ser descomprimido.
 
 ###Deshabilitar características no deseadas en producción:
 ####MMC, USB, Ethernet, command completion, en resumen haciendo U-Boot más rápido es hacerlo más pequeño
@@ -75,4 +74,8 @@ como módulos y cuales quedaran fuera
 ####__setenv verify no__
 
 
-###Optimizar el kernel por tamaño
+
+###REFERENCIAS
+#####[Linux Kernel Users guide] (http://processors.wiki.ti.com/index.php/Linux_Kernel_Users_Guide)
+
+#####[free electrons] (https://events.linuxfoundation.org/sites/events/files/slides/opdenacker-boot-time.pdf)
