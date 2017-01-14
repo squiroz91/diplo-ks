@@ -1,0 +1,7 @@
+Tarea 04 
+
+Samuel Gandarilla Perez
+
+En esta ocasión yo decide trabajar con el modo gráfico para la re-configuración del kernel, usando el menuconfig, fue mas fácil encontrar los atributos a modificar,  en mi caso solo estaba seguro de modificar el aspecto SLUB a SLOB, debido a que esto fue lo que se menciono en clase, otros atributos no me atreví a modificar ya que todavía no entiendo muy bien la función de cada uno de ellos, después de la modificación se realizo la compilación y posterior actualización del kernel en la Raspberry Pi, durante esta acción no se presentaron problemas.
+
+Esto me ayudo a comprobar que la modificación del kernel es fácil y sin contratiempos, siempre y cuando sepamos lo que se modifica.
